@@ -215,8 +215,10 @@ class Exponential(Gamma):
 class NegativeBinomial(Poisson, Gamma):
     '''A negative binomial distribution family.
 
-    This is reminiscent of a Poisson distribution but mu 
-    is a random variable following a Gamma distribution.
+    Used for overdispersed discrete count-data, 
+    i.e. the conditional variance > conditional mean
+
+    
 
     # Parameters
 
@@ -225,6 +227,8 @@ class NegativeBinomial(Poisson, Gamma):
     mu :: the mean of the distribution
 
     '''
+
+    has_dispersion = True
 
     def mu(self, k, theta):
         return (k * np.exp(theta)) / (1 - np.exp(theta))

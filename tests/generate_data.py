@@ -51,6 +51,13 @@ def make_gamma_regression(n_samples=10000,
     y = make_gamma_regression_y(X, parameters)
     return (X, y, parameters)
 
+def make_negative_binomial_regression(n_samples=10000,
+                            n_uncorr_features=10, n_corr_features=10,
+                            n_drop_features=4,
+                            include_intercept=True,
+                            coef_range=(-1, 1):
+    pass
+
 
 def make_uncorrelated_data(n_samples=10000, n_features=25):
     X = np.random.normal(size=(n_samples, n_features))
