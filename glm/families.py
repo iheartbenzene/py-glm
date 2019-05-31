@@ -218,8 +218,6 @@ class NegativeBinomial(Poisson, Gamma):
     Used for overdispersed discrete count-data, 
     i.e. the conditional variance > conditional mean
 
-    
-
     # Parameters
 
     k :: the number of successes
