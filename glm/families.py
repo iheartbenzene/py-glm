@@ -205,7 +205,7 @@ class Exponential(Gamma):
 
     The GLM fit with this family has the following structure equation:
 
-        y | X = Exponentiatl(scale = exp(X beta))
+        y | X = Exponential(scale = exp(X beta))
 
     The only difference between this family and the Gamma family is that the
     dispersion is fixed at 1.
@@ -213,18 +213,21 @@ class Exponential(Gamma):
     has_dispersion = False
 
 class NegativeBinomial(Poisson, Gamma):
-    '''A negative binomial distribution family.
+    """A Negative Binomial distribution family. Used for overdispersed discrete count-data, 
+    where the conditional variance is greater than the conditional mean.
 
-    Used for overdispersed discrete count-data, 
-    i.e. the conditional variance > conditional mean
+    The GLM fit with this family has the following structure equation:
 
-    # Parameters
+        y | X ~ NegativeBinomial(mu = (k * np.exp(theta)) / (1 - np.exp(theta))), k = )
+
+
+    ##### Parameters
 
     k :: the number of successes
     theta :: the canonical parameter
     mu :: the mean of the distribution
 
-    '''
+    """
 
     has_dispersion = True
 
