@@ -2,6 +2,8 @@
 from abc import ABCMeta, abstractmethod
 import numpy as np
 
+from numpy import log
+from scipy.special import gamma, factorial
 
 class ExponentialFamily(metaclass=ABCMeta):
     """An ExponentialFamily must implement at least four methods and define one
@@ -209,3 +211,33 @@ class Exponential(Gamma):
     dispersion is fixed at 1.
     """
     has_dispersion = False
+
+class NegativeBinomial(Poisson, Gamma):
+    '''A negative binomial distribution family.
+
+    This is reminiscent of a Poisson distribution but mu 
+    is a random variable following a Gamma distribution.
+
+    # Parameters
+
+    k :: the number of successes
+    theta :: the canonical parameter
+    mu :: the mean of the distribution
+
+    '''
+
+    def mu(self, k, theta):
+        return (k * np.exp(theta)) / (1 - np.exp(theta))
+    
+    def variance(self, k, mu):
+        return mu + ((mu ** 2) / k)
+
+    def canonical_link(self, k, mu):
+        return log(mu/(k + mu))
+    
+    def deviance(self, k, y, mu):
+        return 2 * sum(y * log((y*k + y*mu)/(mu*k + y*mu)) - k * log((k*(k + y))/(k*(k + mu))))
+
+    def probability_of_y(self, y, k, mu):
+        return gamma(k + y)/(factorial(k)*gamma(y)) * ((mu/(k+mu))**y) * (k/(k+mu))
+    
