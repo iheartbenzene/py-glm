@@ -113,7 +113,7 @@ def test_negative_binomial_regression():
         pr = GLM(family=NegativeBinomial())
         pr.fit(X, y)
         #assert approx_equal(pr.coef_, parameters)
-        mod = statsmodels.discrete.discrete_model.Poisson(y, X)
+        mod = statsmodels.discrete.discrete_model.NegativeBinomial(y, X)
         res = mod.fit()
         assert approx_equal(pr.coef_, res.params)
         assert approx_equal(pr.coef_standard_error_, res.bse)
